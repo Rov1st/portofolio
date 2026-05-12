@@ -6,11 +6,6 @@
     <main>
       <HeroSection />
 
-      <!-- Wave: White → Teal -->
-      <div class="wave-divider wave-from-white">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path fill="#3AAFCC" d="M0,40 C360,120 1080,0 1440,80 L1440,120 L0,120 Z"/></svg>
-      </div>
-
       <!-- Stats on Teal -->
       <div class="bg-teal">
         <div class="container stats-strip reveal-target">
@@ -19,11 +14,6 @@
           <div class="stat-item"><span class="stat-num">6+</span><span class="stat-label">Months Exp</span></div>
           <div class="stat-item"><span class="stat-num">3</span><span class="stat-label">Frameworks</span></div>
         </div>
-      </div>
-
-      <!-- Wave: Teal → White -->
-      <div class="wave-divider wave-from-teal">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path fill="#FFFFFF" d="M0,40 C240,120 480,0 720,60 C960,120 1200,20 1440,80 L1440,120 L0,120 Z"/></svg>
       </div>
 
       <ServicesSection />
