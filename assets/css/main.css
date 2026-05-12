@@ -1,33 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap');
 
 :root {
-  --primary: #3AAFCC;
-  --primary-light: #D4F3FB;
-  --primary-pale: #E8F8FD;
-  --secondary: #FF7E5F;
-  --accent: #FFAA33;
-  --accent2: #A78BFA;
-  --accent3: #34D399;
-  --pink: #FF8FAB;
-  --sky: #7DD3FC;
-  --dark: #1A1D2E;
-  --dark-card: rgba(30, 35, 55, 0.85);
-  --orange-light: #FFF5ED;
-  --orange-pale: #FEE8D6;
-
-  --text-dark: #1E3A4F;
-  --text-mid: #4A6B7C;
-  --text-muted: #7B9DAD;
-  --text-white: #F0F4FF;
-
-  --bg-main: #EAF7FB;
-  --bg-white: #FFFFFF;
-  --card-bg: rgba(255, 255, 255, 0.85);
-  --card-border: rgba(58, 175, 204, 0.15);
-
+  /* Muted Light Pastel Theme Colors */
+  --primary: #A2D2FF;        /* Soft dusty pastel blue */
+  --primary-light: #BDE0FE;  
+  --primary-pale: #F0F4F8;   
+  
+  --secondary: #FFC8DD;      /* Soft muted pink */
+  --secondary-light: #FFE5EC;
+  
+  --accent: #FFF3B0;         /* Soft pale yellow */
+  --accent2: #CDB4DB;        /* Muted lilac */
+  --accent3: #FFAFCC;        /* Slightly darker pink */
+  
+  --pink: #FFAFCC;
+  --sky: #BDE0FE;
+  
+  /* Section Backgrounds */
+  --dark: #2B2D42;           /* Soft dark blue/grey for contrast sections */
+  --dark-card: rgba(43, 45, 66, 0.85);
+  
+  --orange-light: #FFF0F5;   /* Very soft lavender blush */
+  --orange-pale: #FFF5F8;
+  
+  /* Text Colors */
+  --text-dark: #4A4E69;      /* Soft dark purple/grey text */
+  --text-mid: #6D6875;
+  --text-muted: #9D99A5;
+  --text-white: #FFFFFF;
+  
+  --bg-main: #F8F9FA;        /* Very soft off-white/grey bg */
+  --bg-white: #FCFBFC;       /* Off-white to prevent glare */
+  
+  --card-bg: rgba(252, 251, 252, 0.85);
+  --card-border: rgba(162, 210, 255, 0.25);
+  
   --border-radius: 20px;
-  --shadow: 0 8px 30px rgba(58, 175, 204, 0.1);
-  --shadow-hover: 0 15px 45px rgba(58, 175, 204, 0.18);
+  --shadow: 0 8px 30px rgba(205, 180, 219, 0.12);
+  --shadow-hover: 0 15px 45px rgba(162, 210, 255, 0.25);
   --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -198,17 +208,16 @@ section { padding: 100px 0; position: relative; z-index: 4; }
 /* --- Skills (handled by SkillsSection.vue scoped styles) --- */
 
 /* --- Projects --- */
-.projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 40px; }
 .project-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
-.project-img { width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: white; }
+.project-img { width: 100%; height: 180px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: white; }
 .project-img.gudang { background: linear-gradient(135deg, var(--sky), var(--accent2)); }
 .project-img.perpus { background: linear-gradient(135deg, var(--accent2), var(--pink)); }
 .project-img.sales { background: linear-gradient(135deg, var(--accent), var(--secondary)); }
 .project-img.school { background: linear-gradient(135deg, var(--accent3), var(--primary)); }
-.project-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-.project-info h3 { margin-bottom: 10px; font-size: 1.1rem; }
-.project-info p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; flex-grow: 1; }
-.project-tech { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px; }
+.project-info { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; }
+.project-info h3 { margin-bottom: 10px; font-size: 1.05rem; }
+.project-info p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; flex-grow: 1; }
+.project-tech { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
 .project-tech span { font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 8px; background: var(--primary-pale); color: var(--primary); }
 
 /* --- CTA --- */
@@ -246,6 +255,5 @@ section { padding: 100px 0; position: relative; z-index: 4; }
   .hero-btns, .hero-socials { justify-content: center; }
   .nav-links { display: none; }
   .services-grid { grid-template-columns: 1fr; }
-  .projects-grid { grid-template-columns: 1fr; }
   .stats-strip { gap: 25px; flex-wrap: wrap; }
 }
