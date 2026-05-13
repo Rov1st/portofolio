@@ -1,10 +1,12 @@
 <template>
-  <section id="skills" class="tech-section bg-warm" ref="sectionRef">
+  <section id="skills" class="tech-section" ref="sectionRef">
     <!-- ===== CARDS VIEW ===== -->
     <div class="tech-cards-layer" ref="cardsLayerRef" :class="{ 'is-hidden': dimensionActive }">
       <div class="container">
-        <h2 class="section-title">Tech Stack</h2>
-        <p class="section-subtitle">Technologies in my arsenal</p>
+        <div class="section-header">
+          <div class="section-label">Skills</div>
+          <h2 class="section-title"><span class="num">03 /</span> Tech Stack</h2>
+        </div>
         <div class="tech-cards-grid">
           <div
             v-for="(tech, i) in techStacks"
@@ -18,12 +20,8 @@
           >
             <!-- Normal front -->
             <div class="tc-front">
-              <svg v-if="tech.useCustomIcon" class="tc-icon-svg" viewBox="0 0 64 64" :style="{ color: tech.accentColor }">
-                <path d="M16.5 32.7L30.8 47l13.7-13.7H30.8L16.5 32.7z" fill="currentColor" opacity="0.7"/>
-                <path d="M30.8 3L7 26.8l9.5 9.5L44.5 8.3V3H30.8z" fill="currentColor"/>
-                <path d="M30.8 47l13.7-13.7L30.8 47z" fill="currentColor" opacity="0.5"/>
-                <path d="M30.8 47l9.5 9.5 4.2-4.2-9.5-9.5L30.8 47z" fill="currentColor" opacity="0.85"/>
-                <path d="M44.5 33.3L30.8 47l13.7 13.7h13.7L44.5 47l13.7-13.7H44.5z" fill="currentColor"/>
+              <svg v-if="tech.useCustomIcon" class="tc-icon-svg" viewBox="0 0 24 24" :style="{ color: tech.accentColor }">
+                <path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357m.001 23.987l-7.147-7.158 3.676-3.676 7.158 7.158h7.357m-7.358-4.9l-3.48-3.48 3.48-3.48 3.48 3.48-3.48 3.48" fill="currentColor"/>
               </svg>
               <i v-else :class="tech.icon" class="tc-icon" :style="{ color: tech.accentColor }"></i>
               <span class="tc-name">{{ tech.name }}</span>
@@ -50,7 +48,7 @@
       <div class="rift-void-container" ref="riftVoidContainerRef">
         <!-- Top Jaw -->
         <svg class="jaw-edge jaw-edge-top" viewBox="0 0 200 20" preserveAspectRatio="none">
-          <polygon points="0,20 200,20 200,14 196,6 190,16 184,4 178,14 172,2 166,15 160,5 154,17 148,3 142,13 136,6 130,18 124,4 118,15 112,2 106,16 100,5 94,12 88,3 82,17 76,6 70,14 64,2 58,16 52,4 46,13 40,5 34,17 28,6 22,12 16,3 10,15 4,7 0,12" fill="#080b18" />
+          <polygon points="0,20 200,20 200,14 196,6 190,16 184,4 178,14 172,2 166,15 160,5 154,17 148,3 142,13 136,6 130,18 124,4 118,15 112,2 106,16 100,5 94,12 88,3 82,17 76,6 70,14 64,2 58,16 52,4 46,13 40,5 34,17 28,6 22,12 16,3 10,15 4,7 0,12" fill="#1e1a2e" />
         </svg>
 
         <!-- The Expanding Void -->
@@ -71,7 +69,12 @@
               color: activeTechData?.accentColor,
               textShadow: '0 0 40px ' + activeTechData?.glowColor
             }">
-              <i :class="activeTechData?.icon" style="margin-right: 14px; font-size: 1.2em;"></i>
+              <span v-if="activeTechData?.useCustomIcon" class="dim-icon-svg-wrap">
+                <svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357m.001 23.987l-7.147-7.158 3.676-3.676 7.158 7.158h7.357m-7.358-4.9l-3.48-3.48 3.48-3.48 3.48 3.48-3.48 3.48" />
+                </svg>
+              </span>
+              <i v-else :class="activeTechData?.icon" style="margin-right: 14px; font-size: 1.2em;"></i>
               {{ activeTechData?.name }}
             </h2>
 
@@ -136,7 +139,12 @@
               <div class="module-divider" :style="{ background: activeTechData?.accentColor }"></div>
               <p class="module-description">{{ activeModuleData?.description }}</p>
               <div class="module-parent-tag">
-                <i :class="activeTechData?.icon" :style="{ color: activeTechData?.accentColor }"></i>
+                <span v-if="activeTechData?.useCustomIcon" class="dim-icon-svg-wrap-small">
+                  <svg width="1.1em" height="1.1em" viewBox="0 0 24 24" fill="currentColor" :style="{ color: activeTechData?.accentColor }">
+                    <path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357m.001 23.987l-7.147-7.158 3.676-3.676 7.158 7.158h7.357m-7.358-4.9l-3.48-3.48 3.48-3.48 3.48 3.48-3.48 3.48" />
+                  </svg>
+                </span>
+                <i v-else :class="activeTechData?.icon" :style="{ color: activeTechData?.accentColor }"></i>
                 {{ activeTechData?.name }}
               </div>
             </div>
@@ -145,7 +153,7 @@
 
         <!-- Bottom Jaw -->
         <svg class="jaw-edge jaw-edge-bottom" viewBox="0 0 200 20" preserveAspectRatio="none">
-          <polygon points="0,0 200,0 200,6 196,14 190,4 184,16 178,6 172,18 166,5 160,15 154,3 148,17 142,7 136,14 130,2 124,16 118,5 112,18 106,4 100,15 94,8 88,17 82,3 76,14 70,6 64,18 58,4 52,16 46,7 40,15 34,3 28,14 22,8 16,17 10,5 4,13 0,8" fill="#080b18" />
+          <polygon points="0,0 200,0 200,6 196,14 190,4 184,16 178,6 172,18 166,5 160,15 154,3 148,17 142,7 136,14 130,2 124,16 118,5 112,18 106,4 100,15 94,8 88,17 82,3 76,14 70,6 64,18 58,4 52,16 46,7 40,15 34,3 28,14 22,8 16,17 10,5 4,13 0,8" fill="#1e1a2e" />
         </svg>
 
         <!-- Huge slash line for screen tear -->
@@ -563,10 +571,10 @@ onUnmounted(() => {
   position: relative;
   min-height: 600px;
   overflow: hidden;
+  padding: 120px 0;
 }
 
 .tech-cards-layer {
-  padding: 100px 0;
   position: relative;
   z-index: 2;
   transition: opacity 0.4s ease, transform 0.4s ease;
@@ -586,31 +594,31 @@ onUnmounted(() => {
 /* ===== TECH CARD ===== */
 .tech-card {
   position: relative;
-  background: rgba(255,255,255,0.9);
-  border-radius: 20px;
+  background: var(--bg-surface, #ffffff);
+  border-radius: 16px;
   padding: 50px 30px;
   text-align: center;
   cursor: pointer;
   overflow: hidden;
-  border: 1px solid rgba(58,175,204,0.12);
-  box-shadow: 0 8px 30px rgba(58,175,204,0.08);
-  transition: transform 0.4s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.4s ease;
+  border: 1px solid var(--border, rgba(125, 100, 160, 0.1));
+  transition: transform 0.4s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 .tech-card:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.06);
+  border-color: rgba(242, 167, 179, 0.25);
 }
 
 /* Front layer */
 .tc-icon { font-size: 3rem; }
 .tc-icon-svg { width: 3rem; height: 3rem; }
-.tc-name { font-size: 1.4rem; font-weight: 800; color: #1E3A4F; }
+.tc-name { font-size: 1.4rem; font-weight: 800; color: var(--text, #2d2b3a); }
 
 /* Cosmic layer (behind front, revealed on hover) */
 .tc-cosmic {
   position: absolute;
   inset: 0;
-  background: #0a0d1a;
+  background: #1e1a2e;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -722,7 +730,7 @@ onUnmounted(() => {
 .rift-void {
   width: 100%;
   height: 0px;
-  background: #080b18;
+  background: #1e1a2e;
   position: relative;
   overflow: hidden;
 }
@@ -775,6 +783,21 @@ onUnmounted(() => {
   letter-spacing: 3px;
   margin-bottom: 10px;
   animation: fadeInDown 0.5s ease 0.3s both;
+  display: flex;
+  align-items: center;
+}
+.dim-icon-svg-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 18px;
+}
+.dim-icon-svg-wrap-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 .dim-hint {
   color: rgba(255,255,255,0.35);

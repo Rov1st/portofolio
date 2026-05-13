@@ -1,16 +1,28 @@
 <template>
   <div>
-    <!-- Global Preloader -->
+    <!-- Film Grain -->
+    <div class="grain-overlay"></div>
+
+    <!-- Preloader -->
     <div id="preloader" ref="preloader">
-      <div class="preloader-content">
-        <div class="loader-stars">
-          <i class="fa-solid fa-star star1"></i>
-          <i class="fa-solid fa-star star2"></i>
-          <i class="fa-solid fa-star star3"></i>
+      <div class="preloader-inner">
+        <div class="preloader-header">
+          <div class="preloader-counter" ref="preloaderCounter">0</div>
+          <div class="preloader-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 0C12 0 13.5 9 24 12C13.5 15 12 24 12 24C12 24 10.5 15 0 12C10.5 9 12 0 12 0Z" fill="url(#primogem-grad)" />
+              <defs>
+                <linearGradient id="primogem-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#fceaff" />
+                  <stop offset="50%" style="stop-color:#a2d2ff" />
+                  <stop offset="100%" style="stop-color:#ffc8dd" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
         </div>
-        <h2 class="loader-text">Loading Universe...</h2>
-        <div class="loader-bar-bg">
-          <div class="loader-bar-fill" ref="loaderFill"></div>
+        <div class="preloader-bar">
+          <div class="preloader-bar-fill" ref="preloaderFill"></div>
         </div>
       </div>
     </div>
@@ -20,113 +32,118 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import Lenis from 'lenis'
 
 const preloader = ref(null)
-const loaderFill = ref(null)
+const preloaderCounter = ref(null)
+const preloaderFill = ref(null)
 
 onMounted(async () => {
   const gsap = (await import('gsap')).default
-  
-  // Fake loading sequence
+  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+  gsap.registerPlugin(ScrollTrigger)
+
+  // Init Lenis
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+  })
+  window.lenis = lenis
+
+  lenis.on('scroll', ScrollTrigger.update)
+  gsap.ticker.add((time) => { lenis.raf(time * 1000) })
+  gsap.ticker.lagSmoothing(0)
+
+  // Pause scroll during load
+  lenis.stop()
+
+  // Preloader animation
+  const counter = { val: 0 }
   const tl = gsap.timeline({
     onComplete: () => {
-      // Hide preloader completely after animation
-      if (preloader.value) {
-        preloader.value.style.display = 'none'
-      }
+      if (preloader.value) preloader.value.style.display = 'none'
+      lenis.start()
+      ScrollTrigger.refresh()
     }
   })
 
-  // Fill the loading bar
-  tl.to(loaderFill.value, {
-    width: '100%',
-    duration: 1.5,
-    ease: 'power1.inOut'
+  tl.to(counter, {
+    val: 100,
+    duration: 1.8,
+    ease: 'power1.inOut',
+    onUpdate: () => {
+      if (preloaderCounter.value) preloaderCounter.value.textContent = Math.round(counter.val)
+    }
   })
-  
-  // Fade out content and slide up
-  tl.to('.preloader-content', {
-    y: -30,
-    opacity: 0,
-    duration: 0.5,
-    ease: 'power2.in'
-  }, '+=0.2')
-  
-  // Fade out the preloader background
+  tl.to(preloaderFill.value, { scaleX: 1, duration: 1.8, ease: 'power1.inOut' }, 0)
   tl.to(preloader.value, {
-    opacity: 0,
+    yPercent: -100,
     duration: 0.8,
-    ease: 'power2.inOut'
-  }, '-=0.2')
+    ease: 'power4.inOut'
+  }, '+=0.3')
+
+  onBeforeUnmount(() => {
+    lenis.destroy()
+  })
 })
 </script>
 
 <style>
-/* PRELOADER STYLES */
+/* Preloader */
 #preloader {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: var(--dark); /* Deep purple starry background */
+  inset: 0;
+  background: #faf7f2;
   z-index: 99999;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  color: white;
+  padding-bottom: 10vh;
 }
-
-.preloader-content {
-  text-align: center;
-  max-width: 300px;
-  width: 100%;
+.preloader-inner {
+  width: min(400px, 80vw);
 }
-
-.loader-stars {
-  font-size: 2rem;
-  margin-bottom: 20px;
+.preloader-header {
   display: flex;
-  justify-content: center;
-  gap: 15px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
-
-.loader-stars i {
-  color: var(--accent); /* Star Yellow */
-  animation: twinkle 1.5s infinite alternate;
-}
-.star1 { animation-delay: 0s; color: var(--primary); }
-.star2 { animation-delay: 0.5s; color: var(--secondary); font-size: 2.5rem; transform: translateY(-10px); }
-.star3 { animation-delay: 1s; color: var(--accent2); }
-
-@keyframes twinkle {
-  0% { opacity: 0.3; transform: scale(0.8); filter: drop-shadow(0 0 2px currentColor); }
-  100% { opacity: 1; transform: scale(1.1); filter: drop-shadow(0 0 10px currentColor); }
-}
-
-.loader-text {
+.preloader-counter {
   font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--text-white);
-  margin-bottom: 25px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  font-size: 8rem;
+  font-weight: 900;
+  color: #2d2b3a;
+  line-height: 1;
+  letter-spacing: -4px;
+  opacity: 0.08;
 }
-
-.loader-bar-bg {
+.preloader-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 15px rgba(162, 210, 255, 0.4));
+  animation: primo-spin 4s linear infinite;
+}
+@keyframes primo-spin {
+  0% { transform: rotateY(0deg) rotateX(0deg) scale(1); }
+  50% { transform: rotateY(180deg) rotateX(10deg) scale(1.1); }
+  100% { transform: rotateY(360deg) rotateX(0deg) scale(1); }
+}
+.preloader-bar {
   width: 100%;
-  height: 6px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 10px;
+  height: 2px;
+  background: rgba(0,0,0,0.05);
+  border-radius: 2px;
   overflow: hidden;
-  position: relative;
 }
-
-.loader-bar-fill {
+.preloader-bar-fill {
   height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent2));
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 177, 211, 0.5); /* Pastel pink glow */
+  width: 100%;
+  background: var(--secondary, #f2a7b3);
+  transform: scaleX(0);
+  transform-origin: left;
 }
 </style>

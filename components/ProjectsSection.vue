@@ -1,8 +1,10 @@
 <template>
-  <section id="projects" ref="sectionRef">
+  <section id="projects" ref="sectionRef" style="padding: 120px 0;">
     <div class="container">
-      <h2 class="section-title">Projects</h2>
-      <p class="section-subtitle">Some things I've built</p>
+      <div class="section-header">
+        <div class="section-label">Portfolio</div>
+        <h2 class="section-title"><span class="num">04 /</span> Projects</h2>
+      </div>
 
       <!-- Filter Tabs -->
       <div class="projects-filter">
@@ -37,7 +39,7 @@
               class="project-card-slot"
             >
               <div
-                class="card project-card reveal-target"
+                class="project-card"
                 :ref="el => setCardRef(project.id, el)"
               >
                 <div :class="['project-img', project.bgClass]">
@@ -271,6 +273,9 @@ async function triggerShatter(project) {
   isAnimating.value = true
   activeProject.value = project
 
+  // Pause smooth scrolling
+  if (window.lenis) window.lenis.stop()
+
   const cardEl = cardRefs[project.id]
   if (!cardEl) return
 
@@ -463,6 +468,10 @@ async function closeDetail() {
         showDetail.value = false
         activeProject.value = null
         isAnimating.value = false
+        
+        // Resume smooth scrolling
+        if (window.lenis) window.lenis.start()
+
         // Restore card visibility
         Object.values(cardRefs).forEach(el => {
           if (el) el.style.visibility = ''
@@ -490,21 +499,71 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+/* ─── Project Card Content ─── */
+.project-img {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  border-radius: 16px 16px 0 0;
+}
+.project-img.gudang { background: linear-gradient(135deg, #5a7fff, #a78bfa); }
+.project-img.perpus { background: linear-gradient(135deg, #a78bfa, #f472b6); }
+.project-img.sales { background: linear-gradient(135deg, #fbbf24, #f472b6); }
+.project-img.school { background: linear-gradient(135deg, #34d399, #60a5fa); }
+
+.project-info {
+  padding: 22px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.project-info h3 {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  color: var(--text, #e8e6f0);
+}
+.project-info p {
+  color: var(--text-dim, #8a8a9a);
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+  flex-grow: 1;
+  line-height: 1.6;
+}
+.project-tech {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.project-tech span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(242, 167, 179, 0.1);
+  color: var(--secondary, #f2a7b3);
+  border: 1px solid rgba(242, 167, 179, 0.15);
+}
+
 /* ─── Filter Tabs ─── */
 .projects-filter {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 40px;
   flex-wrap: wrap;
-  background: white;
-  padding: 8px;
+  background: var(--bg-surface, #ffffff);
+  padding: 6px;
   border-radius: 30px;
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(162, 210, 255, 0.2);
+  border: 1px solid var(--border, rgba(125, 100, 160, 0.1));
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 }
 
 .filter-btn {
@@ -514,20 +573,20 @@ onBeforeUnmount(() => {
   border-radius: 20px;
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--text-muted);
+  font-size: 0.85rem;
+  color: var(--text-dim, #6b6882);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .filter-btn:hover {
-  color: var(--primary);
+  color: var(--text, #2d2b3a);
 }
 
 .filter-btn.active {
-  background: var(--primary);
+  background: var(--secondary, #f2a7b3);
   color: white;
-  box-shadow: 0 4px 15px rgba(162, 210, 255, 0.4);
+  box-shadow: 0 4px 15px rgba(242, 167, 179, 0.3);
 }
 
 /* ─── Carousel Layout ─── */
@@ -562,6 +621,15 @@ onBeforeUnmount(() => {
   flex-direction: column;
   height: 100%;
   cursor: default;
+  background: var(--bg-surface, #ffffff);
+  border: 1px solid var(--border, rgba(125, 100, 160, 0.1));
+  border-radius: 16px;
+  transition: all 0.4s ease;
+}
+.project-card:hover {
+  border-color: rgba(242, 167, 179, 0.2);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.06);
+  transform: translateY(-4px);
 }
 
 .project-detail-btn {
@@ -582,24 +650,23 @@ onBeforeUnmount(() => {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 2px solid var(--primary);
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  color: var(--primary);
+  border: 1px solid var(--border, rgba(125, 100, 160, 0.1));
+  background: var(--bg-surface, #ffffff);
+  color: var(--text-dim, #6b6882);
   font-size: 1.1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(58, 175, 204, 0.15);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 }
 
 .page-arrow:hover:not(.arrow-disabled) {
-  background: var(--primary);
+  background: var(--secondary, #f2a7b3);
   color: white;
+  border-color: var(--secondary, #f2a7b3);
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 6px 25px rgba(58, 175, 204, 0.35);
 }
 
 .page-arrow-left {

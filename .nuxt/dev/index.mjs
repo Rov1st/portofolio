@@ -2051,7 +2051,7 @@ const _C1bkBbVRSJrFB3eLaqSwFmQnOiq7BYgcn5vxqgKF_Zo = (function(nitro) {
 
 const rootDir = "C:/coding/portofolio";
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap"},{"rel":"stylesheet","href":"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"}],"style":[],"script":[],"noscript":[],"title":"Kenesa Ren | Portfolio","htmlAttrs":{"lang":"id"}};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap"},{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;900&display=swap"},{"rel":"stylesheet","href":"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"}],"style":[],"script":[],"noscript":[],"title":"Kenesa Ren | Portfolio","htmlAttrs":{"lang":"id"}};
 
 const appRootTag = "div";
 
@@ -2154,7 +2154,22 @@ _KykqMJzz1uM_r4uiy3A_d_748eTS41efpEi6b0VKWD4,
 _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw
 ];
 
-const assets = {};
+const assets = {
+  "/index.mjs": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1a87f-OtQkHIJKsY0uUfddg8Y85bWaG+A\"",
+    "mtime": "2026-05-12T23:56:55.531Z",
+    "size": 108671,
+    "path": "index.mjs"
+  },
+  "/index.mjs.map": {
+    "type": "application/json",
+    "etag": "\"6c060-qeMfoBII+dhmKr+0E691N2BPpCk\"",
+    "mtime": "2026-05-12T23:56:55.532Z",
+    "size": 442464,
+    "path": "index.mjs.map"
+  }
+};
 
 function readAsset (id) {
   const serverDir = dirname$1(fileURLToPath(globalThis._importMeta_.url));

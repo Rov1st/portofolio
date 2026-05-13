@@ -1,25 +1,58 @@
 <template>
-  <section id="services" class="section-alt">
+  <section id="services" class="services-section">
     <div class="container">
-      <h2 class="section-title">What I Do</h2>
-      <p class="section-subtitle">Building digital solutions from front to back</p>
+      <div class="section-header">
+        <div class="section-label svc-reveal">What I Do</div>
+        <h2 class="section-title svc-reveal"><span class="num">01 /</span> Services</h2>
+      </div>
+
       <div class="services-grid">
-        <div class="card service-card reveal-target">
-          <div class="service-icon teal"><i class="fa-brands fa-laravel"></i></div>
-          <h3>Fullstack Web</h3>
-          <p style="color:var(--text-mid);font-size:0.9rem;margin-top:10px;">Complete web applications — frontend, API, and backend — built with the Laravel ecosystem.</p>
-        </div>
-        <div class="card service-card reveal-target">
-          <div class="service-icon purple"><i class="fa-brands fa-vuejs"></i></div>
-          <h3>Frontend Development</h3>
-          <p style="color:var(--text-mid);font-size:0.9rem;margin-top:10px;">Interactive, fast, and responsive user interfaces built with Nuxt.js and Vue.js.</p>
-        </div>
-        <div class="card service-card reveal-target">
-          <div class="service-icon coral"><i class="fa-solid fa-mobile-screen"></i></div>
-          <h3>Mobile Development</h3>
-          <p style="color:var(--text-mid);font-size:0.9rem;margin-top:10px;">High-performance cross-platform mobile apps for Android &amp; iOS using Flutter.</p>
+        <div class="service-card svc-card-reveal" v-for="svc in services" :key="svc.title">
+          <h3>{{ svc.title }}</h3>
+          <p>{{ svc.desc }}</p>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<script setup>
+import { onMounted } from 'vue'
+
+const services = [
+  {
+    title: 'Fullstack Web',
+    desc: 'Complete web applications — frontend, API, and backend — built with the Laravel ecosystem.'
+  },
+  {
+    title: 'Frontend Development',
+    desc: 'Interactive, fast, and responsive user interfaces built with Nuxt.js and Vue.js.'
+  },
+  {
+    title: 'Mobile Development',
+    desc: 'High-performance cross-platform mobile apps for Android & iOS using Flutter.'
+  }
+]
+
+onMounted(async () => {
+  const gsap = (await import('gsap')).default
+  const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+  gsap.registerPlugin(ScrollTrigger)
+
+  gsap.fromTo('.svc-reveal',
+    { y: 40, opacity: 0 },
+    {
+      y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out',
+      scrollTrigger: { trigger: '.services-section', start: 'top 80%' }
+    }
+  )
+
+  gsap.fromTo('.svc-card-reveal',
+    { y: 60, opacity: 0 },
+    {
+      y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+      scrollTrigger: { trigger: '.services-grid', start: 'top 85%' }
+    }
+  )
+})
+</script>

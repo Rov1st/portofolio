@@ -1,61 +1,103 @@
 <template>
   <section id="home" class="hero">
-    <div class="deco-ring" style="width:350px;height:350px;top:10%;right:-80px;"></div>
-    <div class="deco-ring" style="width:200px;height:200px;bottom:20%;left:-60px;animation-direction:reverse;border-color:rgba(255,126,95,0.06);"></div>
+    <div class="kanji-bg" style="top: 5%; right: 5%;">開発者</div>
 
-    <div class="container hero-content">
-      <div class="hero-text reveal-target">
-        <p class="greeting">✦ Fullstack Developer ✦</p>
-        <h1>Hi, I'm <span class="highlight">Fa'iq Halul</span><br>Danendra</h1>
-        <p>Also known as <strong style="color:var(--primary);">Kenesa Ren</strong>. A passionate Fresh Graduate from Indonesia specializing in Fullstack Web &amp; Mobile Development.</p>
-        <div class="hero-btns">
+    <div class="container hero-grid">
+      <!-- TEXT -->
+      <div class="hero-text-col">
+        <div class="hero-label line-mask"><span class="hero-anim">✦ Fullstack Developer</span></div>
+
+        <h1 class="hero-title">
+          <span class="line-mask"><span class="hero-anim">Hi, I'm</span></span>
+          <span class="line-mask"><span class="hero-anim accent">Fa'iq Halul</span></span>
+          <span class="line-mask"><span class="hero-anim">Danendra.</span></span>
+        </h1>
+
+        <p class="hero-desc hero-fade">
+          Also known as <strong style="color: var(--secondary);">Kenesa Ren</strong>.
+          A passionate Fresh Graduate from Indonesia specializing in
+          Fullstack Web &amp; Mobile Development.
+        </p>
+
+        <div class="hero-actions hero-fade">
           <a href="#projects" class="btn btn-primary" @click.prevent="scrollTo('#projects')">
-            <i class="fa-solid fa-folder-open"></i>&nbsp; View Projects
+            <i class="fa-solid fa-folder-open"></i> View Projects
           </a>
           <a href="#" class="btn btn-outline">
-            <i class="fa-solid fa-envelope"></i>&nbsp; Contact Me
+            <i class="fa-solid fa-envelope"></i> Contact Me
           </a>
         </div>
-        <div class="hero-socials">
+
+        <div class="hero-socials hero-fade">
           <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
           <a href="#"><i class="fa-brands fa-github"></i></a>
           <a href="#"><i class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
-      <div class="hero-image reveal-target">
-        <div class="hero-glow"></div>
-        <img src="/hero_avatar.png" alt="Kenesa Ren">
-        <div class="float-badge badge-1"><i class="fa-brands fa-laravel"></i> Laravel</div>
-        <div class="float-badge badge-2"><i class="fa-brands fa-vuejs"></i> Nuxt</div>
-        <div class="float-badge badge-3"><i class="fa-solid fa-mobile"></i> Flutter</div>
+
+      <!-- VISUAL -->
+      <div class="hero-visual hero-fade">
+        <div class="hero-img-wrap">
+          <div class="hero-img-glow"></div>
+          <img src="/hero_avatar.png" alt="Kenesa Ren" />
+          <div class="hero-float-tag float-1"><i class="fa-brands fa-laravel" style="color:#FF2D20;"></i> Laravel</div>
+          <div class="hero-float-tag float-2"><i class="fa-brands fa-vuejs" style="color:#00DC82;"></i> Nuxt</div>
+          <div class="hero-float-tag float-3">
+            <svg width="20" height="20" viewBox="0 0 24 24" :style="{ color: '#027DFD' }" fill="currentColor" style="margin-right: 8px;">
+              <path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357m.001 23.987l-7.147-7.158 3.676-3.676 7.158 7.158h7.357m-7.358-4.9l-3.48-3.48 3.48-3.48 3.48 3.48-3.48 3.48" fill="currentColor"/>
+            </svg>
+            Flutter
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
+
 const scrollTo = (id) => {
   const el = document.querySelector(id)
-  if (el) {
-    const h = document.querySelector('header')?.offsetHeight || 0
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - h, behavior: 'smooth' })
-  }
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
+
+onMounted(async () => {
+  const gsap = (await import('gsap')).default
+
+  // Staggered line reveal
+  gsap.to('.hero-anim', {
+    y: 0,
+    duration: 1.2,
+    stagger: 0.12,
+    ease: 'expo.out',
+    delay: 2.5
+  })
+
+  // Fade elements
+  gsap.fromTo('.hero-fade',
+    { y: 30, opacity: 0 },
+    { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 3.0 }
+  )
+
+  // Float tags
+  gsap.to('.hero-float-tag', {
+    y: -8,
+    duration: 2.5,
+    ease: 'sine.inOut',
+    yoyo: true,
+    repeat: -1,
+    stagger: 0.4
+  })
+})
 </script>
 
 <style scoped>
-.float-badge {
-  position: absolute; z-index: 3;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(58, 175, 204, 0.2);
-  padding: 8px 16px; border-radius: 12px;
-  font-size: 0.85rem; font-weight: 700; color: var(--primary);
-  box-shadow: 0 4px 15px rgba(58, 175, 204, 0.1);
-  animation: float-y 3s ease-in-out infinite;
+/* Float tag hover glow */
+.hero-float-tag {
+  transition: box-shadow 0.3s ease;
 }
-.badge-1 { top: 10%; right: -10px; animation-delay: 0s; }
-.badge-2 { bottom: 30%; left: -20px; animation-delay: 1s; color: var(--accent3); border-color: rgba(52,211,153,0.2); }
-.badge-3 { bottom: 5%; right: 10%; animation-delay: 2s; color: var(--secondary); border-color: rgba(255,126,95,0.2); }
-@media (max-width: 768px) { .float-badge { display: none; } }
+.hero-float-tag:hover {
+  box-shadow: 0 12px 40px rgba(162, 210, 255, 0.2);
+}
 </style>
