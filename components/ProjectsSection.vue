@@ -281,31 +281,37 @@ async function triggerShatter(project) {
 
   const rect = cardEl.getBoundingClientRect()
 
-  // 1. Create fixed overlay
-  const overlay = document.createElement('div')
-  overlay.className = 'shatter-fx-overlay'
-  document.body.appendChild(overlay)
+  // 1. Create two overlays: one for background, one for shards
+  const bgOverlay = document.createElement('div')
+  bgOverlay.className = 'shatter-fx-overlay'
+  bgOverlay.style.zIndex = '10000'
+  document.body.appendChild(bgOverlay)
 
-  // 2. Dark backdrop
+  const shardsOverlay = document.createElement('div')
+  shardsOverlay.className = 'shatter-fx-overlay'
+  shardsOverlay.style.zIndex = '10010' // Higher than detail
+  document.body.appendChild(shardsOverlay)
+
+  // 2. Dark backdrop (in bg overlay)
   const darkBg = document.createElement('div')
   darkBg.className = 'shatter-darkbg'
-  overlay.appendChild(darkBg)
+  bgOverlay.appendChild(darkBg)
 
-  // 3. Camera wrapper (for zoom effect)
+  // 3. Camera wrapper (in shards overlay)
   const camera = document.createElement('div')
   camera.className = 'shatter-camera'
-  overlay.appendChild(camera)
+  shardsOverlay.appendChild(camera)
 
-  // 4. Flash element
+  // 4. Flash element (in shards overlay)
   const flash = document.createElement('div')
   flash.className = 'shatter-flash'
   Object.assign(flash.style, {
     left: rect.left + 'px', top: rect.top + 'px',
     width: rect.width + 'px', height: rect.height + 'px'
   })
-  camera.appendChild(flash)
+  shardsOverlay.appendChild(flash)
 
-  // 5. Generate shard elements
+  // 5. Generate shards and debris (in shards overlay)
   const polys = generateShardPolygons(rect.width, rect.height)
   const shardEls = []
 
@@ -320,7 +326,6 @@ async function triggerShatter(project) {
     const cx = poly.reduce((s, [x]) => s + x, 0) / poly.length
     const cy = poly.reduce((s, [, y]) => s + y, 0) / poly.length
 
-    // Gradient matching the card's header (Anime Pastel)
     const gradients = {
       gudang: 'linear-gradient(135deg, #8AE9FC, #D2A8FF)',
       perpus: 'linear-gradient(135deg, #D2A8FF, #FF9ECA)',
@@ -338,14 +343,11 @@ async function triggerShatter(project) {
 
     camera.appendChild(el)
 
-    // Calculate explosion direction from card center
     const dirX = (cx - rect.width / 2) / rect.width
     const dirY = (cy - rect.height / 2) / rect.height
-
     shardEls.push({ el, cx, cy, dirX, dirY })
   })
 
-  // 6. Debris particles (Reduced count)
   const particleEls = []
   for (let i = 0; i < 20; i++) {
     const p = document.createElement('div')
@@ -362,21 +364,16 @@ async function triggerShatter(project) {
     particleEls.push(p)
   }
 
-  // 7. Hide original card
   cardEl.style.visibility = 'hidden'
 
-  // 8. GSAP Timeline
   const gsap = (await import('gsap')).default
   const tl = gsap.timeline()
 
-  // Phase 1: Flash impact
   tl.to(flash, { opacity: 0.9, duration: 0.08, ease: 'power4.in' })
     .to(flash, { opacity: 0, duration: 0.15 })
 
-  // Phase 2: Crack pause (shards visible but together)
   tl.to({}, { duration: 0.15 })
 
-  // Phase 3: Shards explode + dark bg fades in
   tl.to(darkBg, { opacity: 1, duration: 0.8, ease: 'power2.inOut' }, 0.25)
 
   shardEls.forEach(({ el, dirX, dirY }, i) => {
@@ -396,7 +393,6 @@ async function triggerShatter(project) {
     }, 0.25)
   })
 
-  // Phase 4: Particles burst
   particleEls.forEach(p => {
     tl.to(p, {
       x: (Math.random() - 0.5) * 600,
@@ -407,14 +403,9 @@ async function triggerShatter(project) {
       ease: 'expo.out',
       force3D: true
     }, 0.25)
-    tl.to(p, {
-      opacity: 0,
-      duration: 0.3,
-      ease: 'power1.in'
-    }, 0.7 + Math.random() * 0.2)
+    tl.to(p, { opacity: 0, duration: 0.3, ease: 'power1.in' }, 0.7 + Math.random() * 0.2)
   })
 
-  // Phase 5: Camera zoom forward
   tl.to(camera, {
     scale: 2.2,
     duration: 1.5,
@@ -422,38 +413,50 @@ async function triggerShatter(project) {
     force3D: true
   }, 0.1)
 
-  // Phase 6: Show detail after animation
   tl.call(() => {
     showDetail.value = true
+  }, null, null, '>')
+
+  tl.to(camera, { 
+    opacity: 0, 
+    duration: 0.6, 
+    ease: 'power2.inOut' 
+  }, '+=0.1')
+
+  tl.call(() => {
     nextTick(() => {
       const detailEl = document.querySelector('.project-detail-overlay')
       if (detailEl) {
-        // detailEl appears instantly to seamlessly take over the dark background
-        gsap.set(detailEl, { opacity: 1 })
+        // Fade in the whole overlay (background)
+        gsap.to(detailEl, { opacity: 1, duration: 0.6, ease: 'power2.out' })
         
         const contentEl = detailEl.querySelector('.detail-content')
         if (contentEl) {
-          gsap.fromTo(contentEl,
-            { y: 60, scale: 0.95, opacity: 0 },
-            { y: 0, scale: 1, opacity: 1, duration: 0.7, ease: 'back.out(1.2)', delay: 0.1 }
-          )
+          // Fade in the content
+          gsap.to(contentEl, { opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.1 })
         }
       }
     })
-  }, null, null, 1.2)
+  }, null, null, '<')
+
+  tl.to(darkBg, { opacity: 0, duration: 0.4 }, '+=0.4')
+
+
 
   // Cleanup ref
   shatterCleanup = () => {
     tl.kill()
-    overlay.remove()
+    if (bgOverlay) bgOverlay.remove()
+    if (shardsOverlay) shardsOverlay.remove()
     cardEl.style.visibility = ''
   }
 
   // Auto-cleanup overlay after animation (keep detail)
   tl.call(() => {
-    overlay.remove()
+    if (bgOverlay) bgOverlay.remove()
+    if (shardsOverlay) shardsOverlay.remove()
     isAnimating.value = false
-  }, null, null, 2.0)
+  }, null, null, '>')
 }
 
 /* ───────── Close Detail (reverse) ───────── */
@@ -480,7 +483,7 @@ async function closeDetail() {
     })
 
     if (contentEl) {
-      tl.to(contentEl, { y: 40, opacity: 0, scale: 0.96, duration: 0.4, ease: 'power2.in' })
+      tl.to(contentEl, { opacity: 0, duration: 0.4, ease: 'power2.in' })
     }
     tl.to(detailEl, { opacity: 0, duration: 0.3, ease: 'power2.in' }, '-=0.15')
   } else {
@@ -714,7 +717,7 @@ onBeforeUnmount(() => {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  z-index: 10000;
+  z-index: 10005;
   pointer-events: none;
   overflow: hidden;
 }
@@ -772,12 +775,14 @@ onBeforeUnmount(() => {
   justify-content: center;
   overflow-y: auto;
   padding: 40px 20px;
+  opacity: 0; /* Start hidden for smooth fade-in */
 }
 
 .detail-content {
   max-width: 680px;
   width: 100%;
   position: relative;
+  opacity: 0; /* Start hidden to prevent double-pop glitch */
 }
 
 .detail-back-btn {
