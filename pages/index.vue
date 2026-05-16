@@ -1,9 +1,16 @@
 <template>
   <div>
-    <AppHeader />
+    <!-- Intro Sequence Overlay -->
+    <div v-if="isIntroActive" class="intro-overlay" ref="introOverlay">
+      <IntroSequence @complete="finishIntro" />
+    </div>
 
-    <main>
-      <HeroSection />
+    <!-- Main Portfolio Content -->
+    <div v-show="showMainContent" class="main-content">
+      <AppHeader />
+
+      <main>
+        <HeroSection />
 
       <!-- Stats -->
       <div class="stats-bar">
@@ -36,14 +43,38 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <p>&copy; 2026 Kenesa Ren (Fa'iq Halul Danendra). All Rights Reserved.</p>
-    </footer>
+      <footer class="site-footer">
+        <p>&copy; 2026 Kenesa Ren (Fa'iq Halul Danendra). All Rights Reserved.</p>
+      </footer>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
+
+const isIntroActive = ref(true)
+const showMainContent = ref(false)
+const introOverlay = ref(null)
+
+const finishIntro = async () => {
+  showMainContent.value = true
+  // Reset scroll to top before revealing main content
+  window.scrollTo(0, 0)
+  if (window.lenis) window.lenis.scrollTo(0, { immediate: true })
+
+  const gsap = (await import('gsap')).default
+  gsap.to(introOverlay.value, {
+    yPercent: -100,
+    duration: 1.2,
+    ease: 'power3.inOut',
+    onComplete: async () => {
+      isIntroActive.value = false
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      ScrollTrigger.refresh()
+    }
+  })
+}
 
 const stats = [
   { val: '2', label: 'Companies' },
@@ -76,3 +107,18 @@ onMounted(async () => {
   )
 })
 </script>
+
+<style scoped>
+.intro-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: var(--bg);
+}
+.main-content {
+  position: relative;
+  z-index: 1;
+}
+</style>

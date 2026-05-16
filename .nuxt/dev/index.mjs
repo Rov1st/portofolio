@@ -3,44 +3,44 @@ import { Server } from 'node:http';
 import { resolve, dirname, join } from 'node:path';
 import nodeCrypto from 'node:crypto';
 import { parentPort, threadId } from 'node:worker_threads';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, getQuery as getQuery$1, readBody, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, getResponseStatusText } from 'file://C:/coding/portofolio/node_modules/h3/dist/index.mjs';
-import { escapeHtml } from 'file://C:/coding/portofolio/node_modules/@vue/shared/dist/shared.cjs.js';
-import viteNodeEntry_mjs from 'file://C:/coding/portofolio/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs';
-import { viteNodeFetch } from 'file://C:/coding/portofolio/node_modules/@nuxt/vite-builder/dist/vite-node.mjs';
-import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file://C:/coding/portofolio/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, decodePath, withLeadingSlash, withoutTrailingSlash, encodePath, joinRelativeURL } from 'file://C:/coding/portofolio/node_modules/ufo/dist/index.mjs';
-import { renderToString } from 'file://C:/coding/portofolio/node_modules/vue/server-renderer/index.mjs';
-import { klona } from 'file://C:/coding/portofolio/node_modules/klona/dist/index.mjs';
-import defu, { defuFn } from 'file://C:/coding/portofolio/node_modules/defu/dist/defu.mjs';
-import destr, { destr as destr$1 } from 'file://C:/coding/portofolio/node_modules/destr/dist/index.mjs';
-import { snakeCase } from 'file://C:/coding/portofolio/node_modules/scule/dist/index.mjs';
-import { createHead as createHead$1, propsToString, renderSSRHead } from 'file://C:/coding/portofolio/node_modules/unhead/dist/server.mjs';
-import { stringify, uneval } from 'file://C:/coding/portofolio/node_modules/devalue/index.js';
-import { isVNode, isRef, toValue } from 'file://C:/coding/portofolio/node_modules/vue/index.mjs';
-import { DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'file://C:/coding/portofolio/node_modules/unhead/dist/plugins.mjs';
-import { createHooks } from 'file://C:/coding/portofolio/node_modules/hookable/dist/index.mjs';
-import { createFetch, Headers as Headers$1 } from 'file://C:/coding/portofolio/node_modules/ofetch/dist/node.mjs';
-import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file://C:/coding/portofolio/node_modules/node-mock-http/dist/index.mjs';
-import { createStorage, prefixStorage } from 'file://C:/coding/portofolio/node_modules/unstorage/dist/index.mjs';
-import unstorage_47drivers_47fs from 'file://C:/coding/portofolio/node_modules/unstorage/drivers/fs.mjs';
-import file_58_47_47_47C_58_47coding_47portofolio_47node_modules_47_64nuxt_47nitro_45server_47dist_47runtime_47utils_47cache_45driver_46js from 'file://C:/coding/portofolio/node_modules/@nuxt/nitro-server/dist/runtime/utils/cache-driver.js';
-import { digest } from 'file://C:/coding/portofolio/node_modules/ohash/dist/index.mjs';
-import { toRouteMatcher, createRouter } from 'file://C:/coding/portofolio/node_modules/radix3/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, getRequestURL, getResponseHeader, removeResponseHeader, getQuery as getQuery$1, readBody, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, getResponseStatusText } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/h3/dist/index.mjs';
+import { escapeHtml } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/@vue/shared/dist/shared.cjs.js';
+import viteNodeEntry_mjs from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs';
+import { viteNodeFetch } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/@nuxt/vite-builder/dist/vite-node.mjs';
+import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, decodePath, withLeadingSlash, withoutTrailingSlash, encodePath, joinRelativeURL } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/ufo/dist/index.mjs';
+import { renderToString } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/vue/server-renderer/index.mjs';
+import { klona } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/klona/dist/index.mjs';
+import defu, { defuFn } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/defu/dist/defu.mjs';
+import destr, { destr as destr$1 } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/destr/dist/index.mjs';
+import { snakeCase } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/scule/dist/index.mjs';
+import { createHead as createHead$1, propsToString, renderSSRHead } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/unhead/dist/server.mjs';
+import { stringify, uneval } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/devalue/index.js';
+import { isVNode, isRef, toValue } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/vue/index.mjs';
+import { DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/unhead/dist/plugins.mjs';
+import { createHooks } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/hookable/dist/index.mjs';
+import { createFetch, Headers as Headers$1 } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/ofetch/dist/node.mjs';
+import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/node-mock-http/dist/index.mjs';
+import { createStorage, prefixStorage } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/unstorage/dist/index.mjs';
+import unstorage_47drivers_47fs from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/unstorage/drivers/fs.mjs';
+import file_58_47_47_47C_58_47ANGGAP_3720SAJA_3720D_47portfolio_47portofolio_47node_modules_47_64nuxt_47nitro_45server_47dist_47runtime_47utils_47cache_45driver_46js from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/@nuxt/nitro-server/dist/runtime/utils/cache-driver.js';
+import { digest } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/ohash/dist/index.mjs';
+import { toRouteMatcher, createRouter } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/radix3/dist/index.mjs';
 import { readFile } from 'node:fs/promises';
-import consola, { consola as consola$1 } from 'file://C:/coding/portofolio/node_modules/consola/dist/index.mjs';
-import { ErrorParser } from 'file://C:/coding/portofolio/node_modules/youch-core/build/index.js';
-import { Youch } from 'file://C:/coding/portofolio/node_modules/youch/build/index.js';
-import { SourceMapConsumer } from 'file://C:/coding/portofolio/node_modules/source-map/source-map.js';
+import consola, { consola as consola$1 } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/consola/dist/index.mjs';
+import { ErrorParser } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/youch-core/build/index.js';
+import { Youch } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/youch/build/index.js';
+import { SourceMapConsumer } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/source-map/source-map.js';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { getContext } from 'file://C:/coding/portofolio/node_modules/unctx/dist/index.mjs';
-import { captureRawStackTrace, parseRawStackTrace } from 'file://C:/coding/portofolio/node_modules/errx/dist/index.js';
-import _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw from 'file://C:/coding/portofolio/node_modules/@nuxt/vite-builder/dist/fix-stacktrace.mjs';
+import { getContext } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/unctx/dist/index.mjs';
+import { captureRawStackTrace, parseRawStackTrace } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/errx/dist/index.js';
+import _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/@nuxt/vite-builder/dist/fix-stacktrace.mjs';
 import { promises } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { dirname as dirname$1, resolve as resolve$1 } from 'file://C:/coding/portofolio/node_modules/pathe/dist/index.mjs';
-import { walkResolver } from 'file://C:/coding/portofolio/node_modules/unhead/dist/utils.mjs';
+import { dirname as dirname$1, resolve as resolve$1 } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/pathe/dist/index.mjs';
+import { walkResolver } from 'file://C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/unhead/dist/utils.mjs';
 
-const serverAssets = [{"baseName":"server","dir":"C:/coding/portofolio/server/assets"}];
+const serverAssets = [{"baseName":"server","dir":"C:/ANGGAP SAJA D/portfolio/portofolio/server/assets"}];
 
 const assets$1 = createStorage();
 
@@ -52,12 +52,12 @@ const storage = createStorage({});
 
 storage.mount('/assets', assets$1);
 
-storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"C:/coding/portofolio","watchOptions":{"ignored":[null]}}));
-storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"C:/coding/portofolio/server","watchOptions":{"ignored":[null]}}));
-storage.mount('cache:nuxt:payload', file_58_47_47_47C_58_47coding_47portofolio_47node_modules_47_64nuxt_47nitro_45server_47dist_47runtime_47utils_47cache_45driver_46js({"driver":"file:///C:/coding/portofolio/node_modules/@nuxt/nitro-server/dist/runtime/utils/cache-driver.js","base":"C:/coding/portofolio/.nuxt/cache/nuxt/payload"}));
-storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"C:/coding/portofolio/.nuxt"}));
-storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"C:/coding/portofolio/.nuxt/cache"}));
-storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"C:/coding/portofolio/.data/kv"}));
+storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"C:/ANGGAP SAJA D/portfolio/portofolio","watchOptions":{"ignored":[null]}}));
+storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"C:/ANGGAP SAJA D/portfolio/portofolio/server","watchOptions":{"ignored":[null]}}));
+storage.mount('cache:nuxt:payload', file_58_47_47_47C_58_47ANGGAP_3720SAJA_3720D_47portfolio_47portofolio_47node_modules_47_64nuxt_47nitro_45server_47dist_47runtime_47utils_47cache_45driver_46js({"driver":"file:///C:/ANGGAP%20SAJA%20D/portfolio/portofolio/node_modules/@nuxt/nitro-server/dist/runtime/utils/cache-driver.js","base":"C:/ANGGAP SAJA D/portfolio/portofolio/.nuxt/cache/nuxt/payload"}));
+storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"C:/ANGGAP SAJA D/portfolio/portofolio/.nuxt"}));
+storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"C:/ANGGAP SAJA D/portfolio/portofolio/.nuxt/cache"}));
+storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"C:/ANGGAP SAJA D/portfolio/portofolio/.data/kv"}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
@@ -2043,13 +2043,13 @@ if (!window.__NUXT_DEVTOOLS_TIME_METRIC__) {
 window.__NUXT_DEVTOOLS_TIME_METRIC__.appInit = Date.now()
 `;
 
-const _C1bkBbVRSJrFB3eLaqSwFmQnOiq7BYgcn5vxqgKF_Zo = (function(nitro) {
+const _Km0y3fQvHAnEBkF1Ie2K9WS0JJcfLAbkYqo01_NR8 = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
     htmlContext.head.push(`<script>${script}<\/script>`);
   });
 });
 
-const rootDir = "C:/coding/portofolio";
+const rootDir = "C:/ANGGAP SAJA D/portfolio/portofolio";
 
 const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap"},{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;900&display=swap"},{"rel":"stylesheet","href":"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"}],"style":[],"script":[],"noscript":[],"title":"Kenesa Ren | Portfolio","htmlAttrs":{"lang":"id"}};
 
@@ -2075,7 +2075,7 @@ const asyncContext = getContext("nuxt-dev", {
 	asyncContext: true,
 	AsyncLocalStorage
 });
-const _KykqMJzz1uM_r4uiy3A_d_748eTS41efpEi6b0VKWD4 = (nitroApp) => {
+const _OaCir5789bM_v0lei5LcHDy2KasUSUgMt3eNh7dnjsU = (nitroApp) => {
 	const handler = nitroApp.h3App.handler;
 	nitroApp.h3App.handler = (event) => {
 		return asyncContext.callAsync({
@@ -2149,24 +2149,24 @@ function onConsoleLog(callback) {
 }
 
 const plugins = [
-  _C1bkBbVRSJrFB3eLaqSwFmQnOiq7BYgcn5vxqgKF_Zo,
-_KykqMJzz1uM_r4uiy3A_d_748eTS41efpEi6b0VKWD4,
+  _Km0y3fQvHAnEBkF1Ie2K9WS0JJcfLAbkYqo01_NR8,
+_OaCir5789bM_v0lei5LcHDy2KasUSUgMt3eNh7dnjsU,
 _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw
 ];
 
 const assets = {
   "/index.mjs": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"1a87f-OtQkHIJKsY0uUfddg8Y85bWaG+A\"",
-    "mtime": "2026-05-12T23:56:55.531Z",
-    "size": 108671,
+    "etag": "\"1abee-fV4ztxQjLtQKTJto9Fh6wBaSLZM\"",
+    "mtime": "2026-05-16T08:10:07.156Z",
+    "size": 109550,
     "path": "index.mjs"
   },
   "/index.mjs.map": {
     "type": "application/json",
-    "etag": "\"6c060-qeMfoBII+dhmKr+0E691N2BPpCk\"",
-    "mtime": "2026-05-12T23:56:55.532Z",
-    "size": 442464,
+    "etag": "\"6c056-vx5HQnKTLEbBU+Mzoqm4pjNIXtk\"",
+    "mtime": "2026-05-16T08:10:07.156Z",
+    "size": 442454,
     "path": "index.mjs.map"
   }
 };
@@ -2194,7 +2194,7 @@ function getAsset (id) {
 
 const METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
 const EncodingMap = { gzip: ".gz", br: ".br" };
-const _xAjW0m = eventHandler((event) => {
+const _i1q_Zb = eventHandler((event) => {
   if (event.method && !METHODS.has(event.method)) {
     return;
   }
@@ -2639,13 +2639,13 @@ async function getIslandContext(event) {
 	};
 }
 
-const _lazy_OEUVIL = () => Promise.resolve().then(function () { return renderer; });
+const _lazy_Y1HTL2 = () => Promise.resolve().then(function () { return renderer; });
 
 const handlers = [
-  { route: '', handler: _xAjW0m, lazy: false, middleware: true, method: undefined },
-  { route: '/__nuxt_error', handler: _lazy_OEUVIL, lazy: true, middleware: false, method: undefined },
+  { route: '', handler: _i1q_Zb, lazy: false, middleware: true, method: undefined },
+  { route: '/__nuxt_error', handler: _lazy_Y1HTL2, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: handler$1, lazy: false, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_OEUVIL, lazy: true, middleware: false, method: undefined }
+  { route: '/**', handler: _lazy_Y1HTL2, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {

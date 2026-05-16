@@ -17,6 +17,7 @@ interface _GlobalComponents {
   AppHeader: typeof import("../../components/AppHeader.vue")['default']
   ExperienceSection: typeof import("../../components/ExperienceSection.vue")['default']
   HeroSection: typeof import("../../components/HeroSection.vue")['default']
+  IntroSequence: typeof import("../../components/IntroSequence.vue")['default']
   ProjectsSection: typeof import("../../components/ProjectsSection.vue")['default']
   ServicesSection: typeof import("../../components/ServicesSection.vue")['default']
   SkillsSection: typeof import("../../components/SkillsSection.vue")['default']
@@ -46,6 +47,7 @@ interface _GlobalComponents {
   LazyAppHeader: LazyComponent<typeof import("../../components/AppHeader.vue")['default']>
   LazyExperienceSection: LazyComponent<typeof import("../../components/ExperienceSection.vue")['default']>
   LazyHeroSection: LazyComponent<typeof import("../../components/HeroSection.vue")['default']>
+  LazyIntroSequence: LazyComponent<typeof import("../../components/IntroSequence.vue")['default']>
   LazyProjectsSection: LazyComponent<typeof import("../../components/ProjectsSection.vue")['default']>
   LazyServicesSection: LazyComponent<typeof import("../../components/ServicesSection.vue")['default']>
   LazySkillsSection: LazyComponent<typeof import("../../components/SkillsSection.vue")['default']>

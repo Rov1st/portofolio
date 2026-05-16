@@ -17,6 +17,7 @@ type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {},
 export const AppHeader: typeof import("../components/AppHeader.vue")['default']
 export const ExperienceSection: typeof import("../components/ExperienceSection.vue")['default']
 export const HeroSection: typeof import("../components/HeroSection.vue")['default']
+export const IntroSequence: typeof import("../components/IntroSequence.vue")['default']
 export const ProjectsSection: typeof import("../components/ProjectsSection.vue")['default']
 export const ServicesSection: typeof import("../components/ServicesSection.vue")['default']
 export const SkillsSection: typeof import("../components/SkillsSection.vue")['default']
@@ -46,6 +47,7 @@ export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components
 export const LazyAppHeader: LazyComponent<typeof import("../components/AppHeader.vue")['default']>
 export const LazyExperienceSection: LazyComponent<typeof import("../components/ExperienceSection.vue")['default']>
 export const LazyHeroSection: LazyComponent<typeof import("../components/HeroSection.vue")['default']>
+export const LazyIntroSequence: LazyComponent<typeof import("../components/IntroSequence.vue")['default']>
 export const LazyProjectsSection: LazyComponent<typeof import("../components/ProjectsSection.vue")['default']>
 export const LazyServicesSection: LazyComponent<typeof import("../components/ServicesSection.vue")['default']>
 export const LazySkillsSection: LazyComponent<typeof import("../components/SkillsSection.vue")['default']>
